@@ -1,0 +1,44 @@
+{
+    "registros": [
+        {
+            "Id": 1,
+            "Tipo": "Entrada",
+            "Valor": 23.0,
+            "Descri\u00e7\u00e3o": "asd",
+            "Data": "23/03/2323",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "asd",
+            "Cliente": "asd"
+        },
+        {
+            "Id": 2,
+            "Tipo": "Entrada",
+            "Valor": 23.0,
+            "Descri\u00e7\u00e3o": "asd",
+            "Data": "23/01/1212",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "asd",
+            "Cliente": "asd"
+        },
+        {
+            "Id": 3,
+            "Tipo": "Entrada",
+            "Valor": 34.0,
+            "Descri\u00e7\u00e3o": "df",
+            "Data": "31/12/2323",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "asd",
+            "Cliente": "asd"
+        },
+        {
+            "Id": 4,
+            "Tipo": "Sa\u00edda",
+            "Valor": 567.0,
+            "Descri\u00e7\u00e3o": "dfg",
+            "Data": "12/12/1212",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "dd",
+            "Cliente": "asd"
+        }
+    ]
+}

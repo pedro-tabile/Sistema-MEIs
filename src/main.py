@@ -1,13 +1,21 @@
-from views.interface_inicial import exibicao_inicial
-from controllers.validacoes import validacao_escolha
+from views.opcoes_view import exibicao_opcoes
+from controllers.acoes_controller import direcionar_escolha
+from views.mensagens_gerais import msg_inicio, msg_fim
 
+# Fluxo de execução do programa (início, escolha de opções e fim)
 def main():
-    #Referencia a primeira interface (opções de ação)
-    exibicao_inicial()
+    msg_inicio()
 
-    #Valida opção escolhida
-    validacao_escolha()
+    opcao_escolhida = -1
+    while opcao_escolhida != 0:
+        # Referência à primeira interface (opções de ação)
+        exibicao_opcoes()
 
-#Garante que a função main sempre seja a executada
+        # Valida e direciona opção escolhida
+        opcao_escolhida = direcionar_escolha()
+    
+    msg_fim()
+    
+# Garante que a função main sempre seja executada
 if __name__ == "__main__":
     main()
