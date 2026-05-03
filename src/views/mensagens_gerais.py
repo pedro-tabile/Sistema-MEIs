@@ -22,3 +22,6 @@ def mensagem_sucesso(acao_sucesso: int):
 
         case 2:
             print("Registros encontrados com sucesso!\n")
+
+        case 4:
+            print("\nRegistro excluído com sucesso!\n")
