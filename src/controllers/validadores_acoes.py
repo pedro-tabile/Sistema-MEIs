@@ -11,3 +11,16 @@ def validacoes_novo_registro(dados: dict):
     dados['Descrição'] = validar_strings_comum(dados['Descrição'], 'descrição da movimentação')
 
     return dados
+
+# Função de validação do novo valor ao campo escolhido para edição
+def validador_edicao_campo(campo: str, novo_valor: str):
+    if campo in ('Categoria', 'Cliente', 'Descrição'):
+        novo_valor = validar_strings_comum(novo_valor, campo)
+    elif campo == 'Tipo':
+        novo_valor = validar_tipo(novo_valor)
+    elif campo == 'Nível':
+        novo_valor = validar_nivel(novo_valor)
+    elif campo == 'Data':
+        novo_valor = validar_data(novo_valor)
+
+    return novo_valor

@@ -22,3 +22,13 @@ def mensagem_sucesso(acao_sucesso: int):
 
         case 2:
             print("Registros encontrados com sucesso!\n")
+
+        case 3:
+            print("\nRegistro atualizado com sucesso!\n")
+
+        case 4:
+            print("\nRegistro excluído com sucesso!\n")
+
+# Mensagem exibida caso o Id informado não exista
+def registro_inexistente():
+    print("\nNão foi encontrado nenhum registro com esse Id!\n")
