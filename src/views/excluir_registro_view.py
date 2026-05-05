@@ -7,9 +7,5 @@ def msg_confirmacao():
     return input("\nTem certeza que deseja excluir esse registro? (Pressione T para confirmar): ")
 
 # Mensagem de cancelamento de exclusão
-def msg_cancelamento():
+def msg_cancelar_exclusao():
     print("\nExclusão cancelada!\n")
-
-# Mensagem exibida caso o Id informado não exista
-def registro_inexistente():
-    print("\nNão foi encontrado nenhum registro com esse Id!\n")
