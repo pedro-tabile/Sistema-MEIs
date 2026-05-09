@@ -1,20 +1,8 @@
-from views.opcoes_view import exibicao_opcoes
-from controllers.acoes_controller import direcionar_escolha
-from views.mensagens_gerais import msg_inicio, msg_fim
+from controllers.fluxo_execucao_main import fluxo_execucao
 
-# Fluxo de execução do programa (início, escolha de opções e fim)
+# Função principal e inicial: chama a função que controla o fluxo de execução do programa
 def main():
-    msg_inicio()
-
-    opcao_escolhida = -1
-    while opcao_escolhida != 0:
-        # Referência à primeira interface (opções de ação)
-        exibicao_opcoes()
-
-        # Valida e direciona opção escolhida
-        opcao_escolhida = direcionar_escolha()
-    
-    msg_fim()
+    fluxo_execucao()
     
 # Garante que a função main sempre seja executada
 if __name__ == "__main__":
