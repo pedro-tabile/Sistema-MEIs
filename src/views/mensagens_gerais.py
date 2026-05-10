@@ -29,6 +29,9 @@ def mensagem_sucesso(acao_sucesso: int):
         case 4:
             print("\nRegistro excluído com sucesso!\n")
 
+        case 5:
+            print ("\nLimite definido com sucesso!\n")   
+
 # Mensagem exibida caso o Id informado não exista
 def registro_inexistente():
     print("\nNão foi encontrado nenhum registro com esse Id!\n")

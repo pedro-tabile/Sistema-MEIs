@@ -40,5 +40,10 @@
             "Categoria": "d",
             "Cliente": "ert"
         }
+    ],
+    "limites": [
+        {
+            "Pessoal": 1.0
+        }
     ]
 }

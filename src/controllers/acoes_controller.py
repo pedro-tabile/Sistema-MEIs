@@ -5,6 +5,8 @@ from views.novo_registro_view import infos_novo_registro
 from views.buscar_registros_view import tabela_registros, sem_registros
 from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_cancelar_exclusao
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
+from views.adicionar_limite_pessoal_view import solicitar_limite_pessoal
+from models.definir_limite_pessoal_model import definir_limite_pessoal
 from models.adicionar_registro_model import registrar_nova_movimentacao
 from models.buscar_registros_model import buscar_registros
 from models.filtrar_registros import buscar_filtro
@@ -30,6 +32,8 @@ def direcionar_escolha():
         editar_registro(opcao)
     elif opcao == 4:
         excluir_registro(opcao)
+    elif opcao == 5:
+        adicionar_limite_pessoal(opcao)
 
     return opcao
 
@@ -125,3 +129,16 @@ def excluir_registro(opcao: int):
             registro_inexistente()
     else:
         mensagem_erro(filtro_id['erro'])
+
+#Função responsável por direcionar o valor relacionado ao limite pessoal 
+def adicionar_limite_pessoal(opcao: int):
+    valor = solicitar_limite_pessoal()
+
+    definir_limite_pessoal(valor)
+
+    resultado = definir_limite_pessoal(valor)
+
+    if resultado["sucesso"] == True:
+        mensagem_sucesso(opcao)
+    else:
+        mensagem_erro('erro')
