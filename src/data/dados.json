@@ -41,8 +41,9 @@
             "Cliente": "ert"
         }
     ],
-    "Limites": {
-        "Empresarial": 0.0,
-        "Pessoal": 0.0
-    }
+    "Limites": [
+        {
+            "Empresarial": -313.0
+        }
+    ]
 }

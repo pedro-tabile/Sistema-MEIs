@@ -20,6 +20,10 @@ opcoes = (
         "id": 4,
         "mensagem": "Excluir registro",
     },
+    {
+        "id": 5,
+        "mensagem": "Adicionar limite empresarial",
+    },
 )
 
 # Exibição inicial das opções de ações (importadas)
