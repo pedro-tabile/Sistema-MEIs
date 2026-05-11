@@ -22,7 +22,7 @@ opcoes = (
     },
     {
         "id": 5,
-        "mensagem": "Adicionar limite pessoal",
+        "mensagem": "Definir limite",
     },
 )
 

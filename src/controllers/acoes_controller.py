@@ -5,13 +5,13 @@ from views.novo_registro_view import infos_novo_registro
 from views.buscar_registros_view import tabela_registros, sem_registros
 from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_cancelar_exclusao
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
-from views.adicionar_limite_pessoal_view import solicitar_limite_pessoal
-from models.definir_limite_pessoal_model import definir_limite_pessoal
+from views.definir_limite_view import infos_limite, novo_input
 from models.adicionar_registro_model import registrar_nova_movimentacao
 from models.buscar_registros_model import buscar_registros
 from models.filtrar_registros import buscar_filtro
 from models.excluir_registro_model import exclusao_registro
 from models.editar_registro_model import buscar_registro_edicao, editar_dados
+from models.definir_limite_empresarial_model import definir_limite_empresarial
 from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo
 
 # Função que garante que a opção escolhida seja uma das opções permitidas; quando for permitida, direciona às ações correspondentes
@@ -33,7 +33,7 @@ def direcionar_escolha():
     elif opcao == 4:
         excluir_registro(opcao)
     elif opcao == 5:
-        adicionar_limite_pessoal(opcao)
+        adicionar_limite(opcao)
 
     return opcao
 
@@ -130,13 +130,13 @@ def excluir_registro(opcao: int):
     else:
         mensagem_erro(filtro_id['erro'])
 
-#Função responsável por direcionar o valor relacionado ao limite pessoal 
-def adicionar_limite_pessoal(opcao: int):
-    valor = solicitar_limite_pessoal()
+#Função responsável por direcionar o valor relacionado ao limite e seu tipo
+def adicionar_limite(opcao: int):
+    dados_limite = infos_limite()
 
-    definir_limite_pessoal(valor)
+    definir_limite(valor)
 
-    resultado = definir_limite_pessoal(valor)
+    resultado = definir_limite(valor)
 
     if resultado["sucesso"] == True:
         mensagem_sucesso(opcao)

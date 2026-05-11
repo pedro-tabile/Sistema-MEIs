@@ -24,3 +24,10 @@ def validador_edicao_campo(campo: str, novo_valor: str):
         novo_valor = validar_data(novo_valor)
 
     return novo_valor
+
+#Função de validação do nível de valor limite
+def validacoes_limite(dados_limite: dict):
+    # Atualização de dicionário com o resultados da validação
+    dados_limite['Nível'] = validar_nivel(dados_limite['Nível'])
+
+    return dados_limite
