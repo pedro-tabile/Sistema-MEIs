@@ -12,7 +12,7 @@ from models.filtrar_registros import buscar_filtro
 from models.excluir_registro_model import exclusao_registro
 from models.editar_registro_model import buscar_registro_edicao, editar_dados
 from models.definir_limite_model import definir_limite
-from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo, validacoes_limite
+from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo, validador_limite
 
 # Função que garante que a opção escolhida seja uma das opções permitidas; quando for permitida, direciona às ações correspondentes
 def direcionar_escolha():
@@ -130,15 +130,13 @@ def excluir_registro(opcao: int):
     else:
         mensagem_erro(filtro_id['erro'])
 
-#Função responsável por direcionar o valor relacionado ao limite e seu tipo
+#Função responsável por direcionar o valor relacionado ao limite e seu nível
 def adicionar_limite(opcao: int):
     dados_limite = infos_limite()
-    dados_limite = validacoes_limite(dados_limite)
+    dados_limite = validador_limite(dados_limite)
     
     nivel = dados_limite["Nível"]
     valor = dados_limite["Valor"]
-
-    definir_limite(nivel, valor)
 
     resultado = definir_limite(nivel, valor)
 

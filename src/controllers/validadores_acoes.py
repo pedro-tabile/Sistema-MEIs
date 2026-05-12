@@ -25,9 +25,9 @@ def validador_edicao_campo(campo: str, novo_valor: str):
 
     return novo_valor
 
-#Função de validação do nível de valor limite
-def validacoes_limite(dados_limite: dict):
-    # Atualização de dicionário com o resultados da validação
+#Função de validação do nível relacionado ao valor limite
+def validador_limite(dados_limite: dict):
+    # Atualização do dicionário com o resultado da validação
     dados_limite['Nível'] = validar_nivel(dados_limite['Nível'])
 
     return dados_limite
