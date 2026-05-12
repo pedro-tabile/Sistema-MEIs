@@ -5,7 +5,7 @@ from views.novo_registro_view import infos_novo_registro
 from views.buscar_registros_view import tabela_registros, sem_registros
 from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_cancelar_exclusao
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
-from views.definir_limite_view import infos_limite, novo_input
+from views.definir_limite_view import infos_limite
 from models.adicionar_registro_model import registrar_nova_movimentacao
 from models.buscar_registros_model import buscar_registros
 from models.filtrar_registros import buscar_filtro
