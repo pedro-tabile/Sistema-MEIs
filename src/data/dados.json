@@ -43,9 +43,8 @@
     ],
     "limites": [
         {
-            "N\u00edvel": "Empresarial",
-            "Pessoal": 1.0,
-            "Empresarial": -313.0
+            "Empresarial": 78.0,
+            "Pessoal": 345.0
         }
     ]
 }

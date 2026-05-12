@@ -1,7 +1,7 @@
 #Função responsável por solicitar ao usuário o valor limite e seu tipo (empresarial ou pessoal)
 def infos_limite():
     dados_limite = {
-        "Tipo": str(input("Tipo (E para entrada ou S para saída): ")),
+        "Nível": str(input("Nível (E para empresarial ou P para pessoal): ")),
         "Valor": float(input("Valor limite (R$): ")),
     }
     
