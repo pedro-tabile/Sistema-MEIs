@@ -3,11 +3,11 @@
         {
             "Id": 3,
             "Tipo": "Sa\u00edda",
-            "Valor": 123456.0,
+            "Valor": 1234.0,
             "Descri\u00e7\u00e3o": "df",
             "Data": "31/12/2323",
             "N\u00edvel": "Empresarial",
-            "Categoria": "asd",
+            "Categoria": "oioi",
             "Cliente": "asd"
         },
         {
@@ -17,7 +17,7 @@
             "Descri\u00e7\u00e3o": "asdasd",
             "Data": "12/12/1212",
             "N\u00edvel": "Empresarial",
-            "Categoria": "dd",
+            "Categoria": "dsf",
             "Cliente": "asd"
         },
         {
@@ -27,7 +27,7 @@
             "Descri\u00e7\u00e3o": "sdf",
             "Data": "12/12/1212",
             "N\u00edvel": "Empresarial",
-            "Categoria": "dsf",
+            "Categoria": "a",
             "Cliente": "a"
         },
         {
@@ -36,9 +36,19 @@
             "Valor": 1323.43,
             "Descri\u00e7\u00e3o": "211232131",
             "Data": "12/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "d",
+            "N\u00edvel": "Pessoal",
+            "Categoria": "v",
             "Cliente": "ert"
+        },
+        {
+            "Id": 9,
+            "Tipo": "Entrada",
+            "Valor": 234.0,
+            "Descri\u00e7\u00e3o": "asdasd",
+            "Data": "25/06/2024",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "tste",
+            "Cliente": "sdsdf"
         }
     ]
 }

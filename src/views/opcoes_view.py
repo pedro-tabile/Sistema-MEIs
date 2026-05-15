@@ -20,6 +20,10 @@ opcoes = (
         "id": 4,
         "mensagem": "Excluir registro",
     },
+    {
+        "id": 5,
+        "mensagem": "Buscar gráficos",
+    },
 )
 
 # Exibição inicial das opções de ações (importadas)
