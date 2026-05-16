@@ -7,6 +7,7 @@ from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_ca
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
 from views.definir_limite_view import infos_limite
 from views.buscar_graficos_view import exibir_graficos
+from views.analise_valores_view import lucro_prejuizo, mensagem_movimentacoes, valores_categorias
 
 from models.adicionar_registro_model import registrar_nova_movimentacao
 from models.buscar_registros_model import buscar_registros, buscar_registros_parametros
@@ -14,9 +15,11 @@ from models.filtrar_id_registros import buscar_filtro_id
 from models.excluir_registro_model import exclusao_registro
 from models.editar_registro_model import buscar_registro_edicao, editar_dados
 from models.definir_limite_model import definir_limite
+from models.analise_valores_model import somatorias
 from models.buscar_dados_graficos_model import buscar_valores_itens
 
 from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo, validador_limite
+from .analises_valores_controller import analise_balanco
 
 # Função que garante que a opção escolhida seja uma das opções permitidas; quando for permitida, direciona às ações correspondentes
 def direcionar_escolha():
@@ -42,8 +45,11 @@ def direcionar_escolha():
         buscar_graficos(opcao)
     elif opcao == 7:
         busca_parametrizada(opcao)
+    elif opcao == 8:
+        analise_valores(opcao)
 
     return opcao
+
 
 # Função responsável por direcionar ao registro da nova movimentação
 def adicionar_registro(opcao: int):
@@ -58,6 +64,7 @@ def adicionar_registro(opcao: int):
     else:
         # Mensagem para possível erro 
         mensagem_erro(resultado['erro'])
+
 
 # Função responsável por direcionar à exibição da lista dos registros
 def visualizar_registros(opcao: int):
@@ -76,6 +83,7 @@ def visualizar_registros(opcao: int):
     else:
         # Mensagem para possível erro 
         mensagem_erro(resultado['erro'])
+
 
 # Função responsável por direcionar à edição dos dados de um registro
 def editar_registro(opcao: int):
@@ -121,6 +129,7 @@ def editar_registro(opcao: int):
         # Mensagem para possível erro
         mensagem_erro(filtro_id['erro'])
 
+
 # Função responsável por direcionar à exclusão de um registro
 def excluir_registro(opcao: int):
     # Filtra Ids existentes
@@ -154,6 +163,7 @@ def excluir_registro(opcao: int):
     else:
         mensagem_erro(filtro_id['erro'])
 
+
 #Função responsável por direcionar o valor relacionado ao limite e seu nível
 def adicionar_limite(opcao: int):
     dados_limite = infos_limite()
@@ -164,11 +174,12 @@ def adicionar_limite(opcao: int):
 
     resultado = definir_limite(nivel, valor)
 
-    if resultado["sucesso"] == True:
+    if resultado["sucesso"]:
         mensagem_sucesso(opcao)
     else:
         # Mensagem para possível erro
         mensagem_erro(resultado['erro'])
+
 
 # Função responsável por direcionar a exibição dos gráficos: pega os valores identificados e os envia à view de exibição dos gráficos 
 def buscar_graficos(opcao: int):
@@ -191,6 +202,7 @@ def buscar_graficos(opcao: int):
     else:
         # Mensagem para possível erro
         mensagem_erro(valores_itens['erro'])
+
 
 # Função responsável por controlar a busca parametrizada de registros
 def busca_parametrizada(opcao: int):
@@ -221,3 +233,18 @@ def busca_parametrizada(opcao: int):
     else:
         # Mensagem para possível erro
         mensagem_erro(resultado_dados['erro'])
+
+
+# Função responsável pelas ações de análise de valores movimentados
+def analise_valores(opcao: int):
+    dados_balanco = somatorias()
+
+    if dados_balanco['sucesso']:
+        mensagem_movimentacoes(dados_balanco['dados'])
+        
+        resultado_balanco = analise_balanco(dados_balanco['dados'])
+        lucro_prejuizo(resultado_balanco)
+
+        valores_categorias(dados_balanco['dados']['valores_categoria'])
+    else:
+        mensagem_erro(dados_balanco['erro'])
