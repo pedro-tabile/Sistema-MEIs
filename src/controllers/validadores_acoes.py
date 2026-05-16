@@ -31,3 +31,6 @@ def validador_limite(dados_limite: dict):
     dados_limite['Nível'] = validar_nivel(dados_limite['Nível'])
 
     return dados_limite
+
+def validacao_parametro_busca(parametro_escolhido: int):
+    pass
