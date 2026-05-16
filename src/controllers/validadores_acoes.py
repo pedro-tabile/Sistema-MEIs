@@ -24,3 +24,6 @@ def validador_edicao_campo(campo: str, novo_valor: str):
         novo_valor = validar_data(novo_valor)
 
     return novo_valor
+
+def validacao_parametro_busca(parametro_escolhido: int):
+    pass

@@ -8,3 +8,6 @@ def buscar_registros():
         return dados_json
     
     return dados_json
+
+def busca_parametrizada(parametro: str):
+    pass

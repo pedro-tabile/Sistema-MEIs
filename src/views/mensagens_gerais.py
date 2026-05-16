@@ -36,6 +36,6 @@ def mensagem_sucesso(acao_sucesso: int):
 def registro_inexistente():
     print("\nNão foi encontrado nenhum registro com esse Id!\n")
 
-# Mensagem exibida caso não haja nenhum Id (consequentemente, nenhum registro)
-def sem_id():
+# Mensagem exibida caso não haja nenhum registro no arquivo
+def sem_registros():
     print("Nenhum registro encontrado!\n")
