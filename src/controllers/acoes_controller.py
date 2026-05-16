@@ -1,10 +1,11 @@
-# Controller responsável pelo fluxo das ações do sistema
+# Este é o Controller responsável pelo fluxo das ações do sistema
 from views.opcoes_view import opcoes, escolher_opcao
 from views.mensagens_gerais import opcao_invalida, mensagem_erro, mensagem_sucesso, registro_inexistente, sem_registros
 from views.novo_registro_view import infos_novo_registro
 from views.buscar_registros_view import tabela_registros, parametros, retorno_parametro_escolhido
 from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_cancelar_exclusao
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
+from views.definir_limite_view import infos_limite
 from views.buscar_graficos_view import exibir_graficos
 
 from models.adicionar_registro_model import registrar_nova_movimentacao
@@ -12,9 +13,10 @@ from models.buscar_registros_model import buscar_registros, buscar_registros_par
 from models.filtrar_id_registros import buscar_filtro_id
 from models.excluir_registro_model import exclusao_registro
 from models.editar_registro_model import buscar_registro_edicao, editar_dados
+from models.definir_limite_model import definir_limite
 from models.buscar_dados_graficos_model import buscar_valores_itens
 
-from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo
+from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo, validador_limite
 
 # Função que garante que a opção escolhida seja uma das opções permitidas; quando for permitida, direciona às ações correspondentes
 def direcionar_escolha():
@@ -35,8 +37,10 @@ def direcionar_escolha():
     elif opcao == 4:
         excluir_registro(opcao)
     elif opcao == 5:
-        buscar_graficos(opcao)
+        adicionar_limite(opcao)
     elif opcao == 6:
+        buscar_graficos(opcao)
+    elif opcao == 7:
         busca_parametrizada(opcao)
 
     return opcao
@@ -148,8 +152,23 @@ def excluir_registro(opcao: int):
             # Mensagem de inexistência de Id
             registro_inexistente()
     else:
-        # Mensagem para possível erro
         mensagem_erro(filtro_id['erro'])
+
+#Função responsável por direcionar o valor relacionado ao limite e seu nível
+def adicionar_limite(opcao: int):
+    dados_limite = infos_limite()
+    dados_limite = validador_limite(dados_limite)
+    
+    nivel = dados_limite["Nível"]
+    valor = dados_limite["Valor"]
+
+    resultado = definir_limite(nivel, valor)
+
+    if resultado["sucesso"] == True:
+        mensagem_sucesso(opcao)
+    else:
+        # Mensagem para possível erro
+        mensagem_erro(resultado['erro'])
 
 # Função responsável por direcionar a exibição dos gráficos: pega os valores identificados e os envia à view de exibição dos gráficos 
 def buscar_graficos(opcao: int):
@@ -202,4 +221,3 @@ def busca_parametrizada(opcao: int):
     else:
         # Mensagem para possível erro
         mensagem_erro(resultado_dados['erro'])
-    

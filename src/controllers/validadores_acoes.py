@@ -25,5 +25,12 @@ def validador_edicao_campo(campo: str, novo_valor: str):
 
     return novo_valor
 
+#Função de validação do nível relacionado ao valor limite
+def validador_limite(dados_limite: dict):
+    # Atualização do dicionário com o resultado da validação
+    dados_limite['Nível'] = validar_nivel(dados_limite['Nível'])
+
+    return dados_limite
+
 def validacao_parametro_busca(parametro_escolhido: int):
     pass

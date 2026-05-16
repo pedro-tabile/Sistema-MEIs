@@ -1,4 +1,4 @@
-# tupla com todas as opções de ações e suas respectivas correspondências
+# Tupla com todas as opções de ações e suas respectivas correspondências
 opcoes = (
     {
         "id": 0,
@@ -22,10 +22,14 @@ opcoes = (
     },
     {
         "id": 5,
-        "mensagem": "Buscar gráficos",
+        "mensagem": "Definir limite",
     },
     {
         "id": 6,
+        "mensagem": "Buscar gráficos",
+    },
+    {
+        "id": 7,
         "mensagem": "Busca parametrizada de registros",
     },
 )

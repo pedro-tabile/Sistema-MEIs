@@ -30,9 +30,12 @@ def mensagem_sucesso(acao_sucesso: int):
             print("\nRegistro excluído com sucesso!\n")
 
         case 5:
+            print ("\nLimite definido com sucesso!\n")   
+        
+        case 6:
             print("Gráficos gerados com sucesso!\n")
 
-        case 6:
+        case 7:
             print("Registros filtrados com sucesso!\n")
 
 # Mensagem exibida caso o Id informado não exista

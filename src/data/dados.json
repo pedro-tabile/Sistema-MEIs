@@ -50,5 +50,11 @@
             "Categoria": "tste",
             "Cliente": "sdsdf"
         }
+    ],
+    "limites": [
+        {
+            "Empresarial": 235.0,
+            "Pessoal": 7658.0
+        }
     ]
 }
