@@ -1,7 +1,7 @@
 from tabulate import tabulate
 
 # Função responsável pela exibição da tabela de registros
-def tabela_registros(dados_exibicao: dict):
+def tabela_registros(dados_exibicao: list):
     lista_dados = []
 
     # Loop que adiciona os valores de cada chave dos registros (agrupados por listas) em uma lista geral
@@ -15,17 +15,35 @@ def tabela_registros(dados_exibicao: dict):
 
     print(f"{tabulate(lista_dados, headers=lista_headers, tablefmt='github', disable_numparse=True)}\n")
 
-# Opções para busca parametrizada
+# Opções para busca parametrizada, solicitando a opção (parâmetro) que o usuário deseja para exibir os registros
 def parametros():
-    msg = "1 - Por nível\n" \
-    "2 - Por categorias\n" \
-    "3 - Por tipos\n"\
-    "Escolha a opção para filtrar registros: " 
-    opcao = int(input(msg))
+    # Lista com dicionário contendo id e descrição da opção, de modo a facilitar manipulação de dados no controller e no model
+    opcoes_params = [
+        {
+            "id": 1,
+            "param": "Nível"
+        }, 
+        {
+            "id": 2,
+            "param": "Categoria"
+        }, 
+        {
+            "id": 3,
+            "param": "Tipo"
+        }
+    ]
+
+    for item in opcoes_params:
+        print(f"{item['id']} - Por {item['param']}")
+
+    opcao = int(input("\nEscolha a opção para filtrar registros: " ))
     
     print()
 
-    return opcao
+    if opcao not in range(1, len(opcoes_params) + 1):
+        return False
+
+    return opcoes_params[opcao - 1]
 
 # Função que solicita que o usuário informe o que deseja filtrar com base no parâmetro escolhido (tipo, nível ou categoria), definindo, 
 # assim, a saída adequada para correspondência no arquivo
@@ -41,14 +59,16 @@ def retorno_parametro_escolhido(parametro_escolhido: int):
             filtro = 'Pessoal'
 
     elif parametro_escolhido == 2:
-        filtro = input("Informe a categoria: ").upper()
+        filtro = input("Informe a categoria: ")
 
     else:
         tipo = input("Entrada (E) ou Saída (S): ").upper()
 
         if tipo == 'E': 
             filtro = 'Entrada'
-        elif tipo == 'P': 
+        elif tipo == 'S': 
             filtro = 'Saída'
+
+    print()
 
     return filtro

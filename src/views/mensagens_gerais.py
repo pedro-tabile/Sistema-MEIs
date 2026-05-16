@@ -32,6 +32,9 @@ def mensagem_sucesso(acao_sucesso: int):
         case 5:
             print("Gráficos gerados com sucesso!\n")
 
+        case 6:
+            print("Registros filtrados com sucesso!\n")
+
 # Mensagem exibida caso o Id informado não exista
 def registro_inexistente():
     print("\nNão foi encontrado nenhum registro com esse Id!\n")
