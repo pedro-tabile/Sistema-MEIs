@@ -1,14 +1,14 @@
 # Controller responsável pelo fluxo das ações do sistema
 from views.opcoes_view import opcoes, escolher_opcao
-from views.mensagens_gerais import opcao_invalida, mensagem_erro, mensagem_sucesso, registro_inexistente, sem_id
+from views.mensagens_gerais import opcao_invalida, mensagem_erro, mensagem_sucesso, registro_inexistente, sem_registros
 from views.novo_registro_view import infos_novo_registro
-from views.buscar_registros_view import tabela_registros, sem_registros
+from views.buscar_registros_view import tabela_registros, parametros, retorno_parametro_escolhido
 from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_cancelar_exclusao
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
 from views.buscar_graficos_view import exibir_graficos
 
 from models.adicionar_registro_model import registrar_nova_movimentacao
-from models.buscar_registros_model import buscar_registros
+from models.buscar_registros_model import buscar_registros, buscar_registros_parametros
 from models.filtrar_id_registros import buscar_filtro_id
 from models.excluir_registro_model import exclusao_registro
 from models.editar_registro_model import buscar_registro_edicao, editar_dados
@@ -36,6 +36,8 @@ def direcionar_escolha():
         excluir_registro(opcao)
     elif opcao == 5:
         buscar_graficos(opcao)
+    elif opcao == 6:
+        busca_parametrizada(opcao)
 
     return opcao
 
@@ -65,7 +67,7 @@ def visualizar_registros(opcao: int):
             mensagem_sucesso(opcao)
             tabela_registros(resultado['dados']['registros'])
         else:
-            # Mensagem de sem registros
+            # Mensagem de inexistência registros
             sem_registros()
     else:
         # Mensagem para possível erro 
@@ -149,13 +151,13 @@ def excluir_registro(opcao: int):
         # Mensagem para possível erro
         mensagem_erro(filtro_id['erro'])
 
-# Função responsável por direcionar a exibição dos gráficos: pega os valores identificados e os envia ao view de exibição dos gráficos 
+# Função responsável por direcionar a exibição dos gráficos: pega os valores identificados e os envia à view de exibição dos gráficos 
 def buscar_graficos(opcao: int):
     # Inicialmente, verirfica se tem algum registro (Id) para prosseguir; caso não haja, retorna mensagem de inexistência
     filtro_id = buscar_filtro_id('Id')
 
     if filtro_id['quantidade'] == 0:
-        sem_id()
+        sem_registros()
         return
 
     # Chama a função que retorna um dicionário com todos os valores por níveis, tipos e categorias; caso a busca ocorra normalmente, os 
@@ -170,3 +172,34 @@ def buscar_graficos(opcao: int):
     else:
         # Mensagem para possível erro
         mensagem_erro(valores_itens['erro'])
+
+# Função responsável por controlar a busca parametrizada de registros
+def busca_parametrizada(opcao: int):
+    # Resgata o parâmetro escolhido pelo usuário e valida se a opção é inválida
+    parametro = parametros()
+    if parametro is False:
+        opcao_invalida()
+        return
+    
+    # Resgata o filtro de pesquisa escolhido pelo usuário e valida se é inválido
+    filtro_pesquisa = retorno_parametro_escolhido(parametro['id'])
+    if filtro_pesquisa is None:
+        opcao_invalida()
+        return
+
+    # Chama a função que retorna os registros correspondentes à busca do usuário
+    resultado_dados = buscar_registros_parametros(filtro_pesquisa, parametro['param'])
+
+    # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação ocorra normalmente; caso contrário, resposta de erro
+    if resultado_dados['sucesso']:
+        # Faz a validação da correspondência de registros e exibe-os na tabela caso existam
+        if len(resultado_dados['dados']) > 0:
+            mensagem_sucesso(opcao)
+            tabela_registros(resultado_dados['dados'])
+        else:
+            # Mensagem de inexistência registros
+            sem_registros()
+    else:
+        # Mensagem para possível erro
+        mensagem_erro(resultado_dados['erro'])
+    

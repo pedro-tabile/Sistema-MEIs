@@ -24,6 +24,10 @@ opcoes = (
         "id": 5,
         "mensagem": "Buscar gráficos",
     },
+    {
+        "id": 6,
+        "mensagem": "Busca parametrizada de registros",
+    },
 )
 
 # Exibição inicial das opções de ações (importadas)
