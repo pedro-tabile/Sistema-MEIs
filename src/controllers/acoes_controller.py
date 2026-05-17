@@ -7,7 +7,7 @@ from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_ca
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
 from views.definir_limite_view import infos_limite
 from views.buscar_graficos_view import exibir_graficos
-from views.analise_valores_view import lucro_prejuizo, mensagem_movimentacoes, valores_categorias
+from views.analise_valores_view import lucro_prejuizo, mensagem_movimentacoes, niveis_limites, sem_limite_definido
 
 from models.adicionar_registro_model import registrar_nova_movimentacao
 from models.buscar_registros_model import buscar_registros, buscar_registros_parametros
@@ -19,7 +19,7 @@ from models.analise_valores_model import somatorias
 from models.buscar_dados_graficos_model import buscar_valores_itens
 
 from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo, validador_limite
-from .analises_valores_controller import analise_balanco
+from .analises_valores_controller import analise_balanco_geral, analise_balanco_niveis
 
 # Função que garante que a opção escolhida seja uma das opções permitidas; quando for permitida, direciona às ações correspondentes
 def direcionar_escolha():
@@ -46,7 +46,7 @@ def direcionar_escolha():
     elif opcao == 7:
         busca_parametrizada(opcao)
     elif opcao == 8:
-        analise_valores(opcao)
+        analise_valores()
 
     return opcao
 
@@ -62,7 +62,7 @@ def adicionar_registro(opcao: int):
     if resultado['sucesso']:
         mensagem_sucesso(opcao)
     else:
-        # Mensagem para possível erro 
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo 
         mensagem_erro(resultado['erro'])
 
 
@@ -81,7 +81,7 @@ def visualizar_registros(opcao: int):
             # Mensagem de inexistência registros
             sem_registros()
     else:
-        # Mensagem para possível erro 
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo 
         mensagem_erro(resultado['erro'])
 
 
@@ -126,7 +126,7 @@ def editar_registro(opcao: int):
             # Mensagem de inexistência de Id
             registro_inexistente()
     else:
-        # Mensagem para possível erro
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(filtro_id['erro'])
 
 
@@ -161,6 +161,7 @@ def excluir_registro(opcao: int):
             # Mensagem de inexistência de Id
             registro_inexistente()
     else:
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(filtro_id['erro'])
 
 
@@ -177,7 +178,7 @@ def adicionar_limite(opcao: int):
     if resultado["sucesso"]:
         mensagem_sucesso(opcao)
     else:
-        # Mensagem para possível erro
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(resultado['erro'])
 
 
@@ -200,7 +201,7 @@ def buscar_graficos(opcao: int):
 
         mensagem_sucesso(opcao)
     else:
-        # Mensagem para possível erro
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(valores_itens['erro'])
 
 
@@ -231,20 +232,35 @@ def busca_parametrizada(opcao: int):
             # Mensagem de inexistência registros
             sem_registros()
     else:
-        # Mensagem para possível erro
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(resultado_dados['erro'])
 
 
 # Função responsável pelas ações de análise de valores movimentados
-def analise_valores(opcao: int):
-    dados_balanco = somatorias()
+def analise_valores():
+    # Variável que armazena um dict com todos os cálculos envolvidos nas análises
+    dados_calculos = somatorias()
 
-    if dados_balanco['sucesso']:
-        mensagem_movimentacoes(dados_balanco['dados'])
+    if dados_calculos['sucesso']:
+        # Exibição das mensagens de total movimentado geral e total movimentado em entradas e saídas, junto às porcentagens
+        mensagem_movimentacoes(dados_calculos['dados'])
         
-        resultado_balanco = analise_balanco(dados_balanco['dados'])
-        lucro_prejuizo(resultado_balanco)
+        # Trecho que chama função de análise de balanço geral (definição de lucro, prejuízo ou equilíbrio) e envia à view (lucro_prejuizo) valor, 
+        # balanço e porcentagem
+        resultado_balanco_geral = analise_balanco_geral(dados_calculos['dados'])
+        lucro_prejuizo(resultado_balanco_geral)
 
-        valores_categorias(dados_balanco['dados']['valores_categoria'])
+        # Trecho que chama função de análise de balanço por níveis e limites, enviando à view valores de balanço, limites e porcentagem dos níveis.
+        resultado_balanco_niveis = analise_balanco_niveis(dados_calculos['dados'])
+        niveis_limites(resultado_balanco_niveis)
+        # Caso algum limite não esteja definido (sem correspondência no dicionário retornado na análise), chama-se uma view (sem_limite_definido) 
+        # que informa a impossibilidade de análise
+        if resultado_balanco_niveis.get('Pessoal') is None:
+            sem_limite_definido('Pessoal')
+        if resultado_balanco_niveis.get('Empresarial') is None:
+            sem_limite_definido('Empresarial')
+
+        #valores_categorias(dados_calculos['dados']['valores_categoria'])
     else:
-        mensagem_erro(dados_balanco['erro'])
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
+        mensagem_erro(dados_calculos['erro'])
