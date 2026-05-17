@@ -7,7 +7,7 @@ from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_ca
 from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
 from views.definir_limite_view import infos_limite
 from views.buscar_graficos_view import exibir_graficos
-from views.analise_valores_view import lucro_prejuizo, mensagem_movimentacoes, niveis_limites, sem_limite_definido
+from views.analise_valores_view import lucro_prejuizo, mensagem_movimentacoes, niveis_limites, sem_limite_definido, valores_categorias
 
 from models.adicionar_registro_model import registrar_nova_movimentacao
 from models.buscar_registros_model import buscar_registros, buscar_registros_parametros
@@ -242,15 +242,18 @@ def analise_valores():
     dados_calculos = somatorias()
 
     if dados_calculos['sucesso']:
-        # Exibição das mensagens de total movimentado geral e total movimentado em entradas e saídas, junto às porcentagens
+        # Análise 1 - Exibição das mensagens de total movimentado geral e total movimentado em entradas e saídas, junto às porcentagens
         mensagem_movimentacoes(dados_calculos['dados'])
         
-        # Trecho que chama função de análise de balanço geral (definição de lucro, prejuízo ou equilíbrio) e envia à view (lucro_prejuizo) valor, 
+        # Análise 2 - Trecho que chama função de análise de balanço geral (definição de lucro, prejuízo ou equilíbrio) e envia à view (lucro_prejuizo) valor, 
         # balanço e porcentagem
         resultado_balanco_geral = analise_balanco_geral(dados_calculos['dados'])
         lucro_prejuizo(resultado_balanco_geral)
 
-        # Trecho que chama função de análise de balanço por níveis e limites, enviando à view valores de balanço, limites e porcentagem dos níveis.
+        # Análise 3 - Trecho que chama a view para exibição da análise por categorias
+        valores_categorias(dados_calculos['dados']['valores_categoria'])
+
+        # Análise 4 - Trecho que chama função de análise de balanço por níveis e limites, enviando à view valores de balanço, limites e porcentagem dos níveis.
         resultado_balanco_niveis = analise_balanco_niveis(dados_calculos['dados'])
         niveis_limites(resultado_balanco_niveis)
         # Caso algum limite não esteja definido (sem correspondência no dicionário retornado na análise), chama-se uma view (sem_limite_definido) 
@@ -259,8 +262,6 @@ def analise_valores():
             sem_limite_definido('Pessoal')
         if resultado_balanco_niveis.get('Empresarial') is None:
             sem_limite_definido('Empresarial')
-
-        #valores_categorias(dados_calculos['dados']['valores_categoria'])
     else:
         # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(dados_calculos['erro'])

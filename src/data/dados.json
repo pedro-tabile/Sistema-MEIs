@@ -49,10 +49,20 @@
             "N\u00edvel": "Empresarial",
             "Categoria": "tste",
             "Cliente": "sdsdf"
+        },
+        {
+            "Id": 10,
+            "Tipo": "Entrada",
+            "Valor": 154.0,
+            "Descri\u00e7\u00e3o": "sdfsdf",
+            "Data": "23/05/2626",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "oioi",
+            "Cliente": "sfdsdfsd"
         }
     ],
     "limites": {
         "Empresarial": 10.0,
-        "Pessoal": 150.0
+        "Pessoal": 10.0
     }
 }

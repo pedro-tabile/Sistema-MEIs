@@ -1,3 +1,4 @@
+from tabulate import tabulate
 from utils.formatacao_real import formatar_valor
 
 # Mensagem geral da análise, informando o total movimentado e o total de entradas e saídas, junto às porcentagens com relação ao total
@@ -5,7 +6,7 @@ def mensagem_movimentacoes(dados: dict):
     total_entradas, total_saidas = formatar_valor(dados['totais']['total_entradas']), formatar_valor(dados['totais']['total_saidas'])
     porc_entradas, porc_saidas = dados['porcentagens']['entradas'], dados['porcentagens']['saidas']
 
-    print("-" * 80)
+    print("-" * 82)
 
     print(f"Você já movimentou R$ {formatar_valor(dados['totais']['total_geral'])}!")
     print(f"R$ {total_entradas} em entradas ({porc_entradas:.2f}%) e R$ {total_saidas} em saídas ({porc_saidas:.2f}%).")
@@ -25,7 +26,7 @@ def lucro_prejuizo(resultado_balanco: dict):
 # Função que define balanço das saídas e limites empresarial e pessoal (caso algum limite seja 0 - ou não informado - a mensagem de impossibilidade)
 # de análise é informada
 def niveis_limites(dados_niveis: dict):
-    print("-" * 80)
+    print("-" * 82)
 
     # Laço responsável por exibir as mensagens (comuns) para os 2 níveis, garantindo a exibição do(s) que existir(em).
     for item in dados_niveis:
@@ -45,24 +46,26 @@ def niveis_limites(dados_niveis: dict):
             print("Você atingiu o limite!")
 
         print()
-
+        
 # Mensagem exibida em caso de limite indefinido para algum nível
 def sem_limite_definido(nivel_limite: str):
     print(f"Nível {nivel_limite}:")
     print("  - Sem análise: limite é 0 ou não há limite definido!")
     print()
 
+# Exibição de total de entrada e saída, balanço, total movimentado e porcentagem do total movimentado em relação ao total geral por categoria 
+# em formato de tabela 
+def valores_categorias(valores_categorias: dict):
+    print("-" * 82)
 
+    lista_headers = ['Categoria', 'Entradas', 'Saídas', 'Balanço', 'Total movimentado', 'Fatia do total geral (%)']
+    lista_dados = []
 
-# def valores_categorias(valores_categorias: dict):
-#     print("-" * 80)
-
-#     print("Entradas por categoria:")
-#     for chave, valor in valores_categorias['Entradas'].items():
-#         print(f"  - {chave}: R$ {formatar_valor(valor)}")
-
-#     print("\nSaídas por categoria:")
-#     for chave, valor in valores_categorias['Saídas'].items():
-#         print(f"  - {chave}: R$ {formatar_valor(valor)}")
-
-#     print()
+    # Laço que percorre item do dicionário das categorias e adiciona à lista de dados uma lista com o nome da categoria e os valores envolvidos
+    for chave, item in valores_categorias.items():
+        # União de listas: chave com valores
+        lista = [chave] + list(item.values())
+        lista_dados.append(lista)
+        
+    print("Tabela de análise de valores por categoria - Valores em reais (R$)\n")
+    print(tabulate(lista_dados, headers=lista_headers, tablefmt='github', disable_numparse=True))

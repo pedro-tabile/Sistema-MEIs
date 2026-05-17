@@ -10,20 +10,18 @@ def somatorias():
     
     somatoria_entradas, somatoria_saidas = 0, 0
     somatoria_saidas_pessoais, somatoria_saidas_empresariais = 0, 0
-    categorias_movimentacoes = {
-        "Entradas": {},
-        "Saídas": {},
-        "Total": {}
-    }
+    categorias_movimentacoes = {}
 
-    # Leva em consideração os tipos (entrada ou saída) e soma os totais, categorias e saídas por nível (empresarial ou pessoal)
+    # Ção que leva em consideração os tipos (entrada ou saída) e soma os totais, categorias e saídas por nível (empresarial ou pessoal)
     for item in dados['dados']['registros']:
+        categoria = item['Categoria']
+
+        categorias_movimentacoes.setdefault(categoria, {'entrada': 0, 'saida': 0, 'balanco': 0, 'movimentado': 0, 'porc_movimentacao': 0})
         if item['Tipo'] == 'Entrada':
             somatoria_entradas += item['Valor']
 
-            # Caso a categoria não exista, é criada e recebe 0 como padrão para permitir o início da soma
-            categorias_movimentacoes['Entradas'].setdefault(item['Categoria'], 0)
-            categorias_movimentacoes['Entradas'][item['Categoria']] += item['Valor']
+            # Incrementa valor ao campo de entrada da categoria
+            categorias_movimentacoes[categoria]['entrada'] += item['Valor']
         else:
             somatoria_saidas += item['Valor']
 
@@ -33,13 +31,12 @@ def somatorias():
             else:
                 somatoria_saidas_pessoais += item['Valor']
 
-            # Caso a categoria não exista, é criada e recebe 0 como padrão para permitir o início da soma
-            categorias_movimentacoes['Saídas'].setdefault(item['Categoria'], 0)
-            categorias_movimentacoes['Saídas'][item['Categoria']] += item['Valor']
+            # Incrementa valor ao campo de saída da categoria
+            categorias_movimentacoes[categoria]['saida'] += item['Valor']
         
-        # Caso a categoria não exista, é criada e recebe 0 como padrão para permitir o início da soma
-        categorias_movimentacoes['Total'].setdefault(item['Categoria'], 0)
-        categorias_movimentacoes['Total'][item['Categoria']] += item['Valor']
+        # Incrementa balanço (diferença entre total de entrada e total de saída) e total movimentado
+        categorias_movimentacoes[categoria]['balanco'] = categorias_movimentacoes[categoria]['entrada'] - categorias_movimentacoes[categoria]['saida']
+        categorias_movimentacoes[categoria]['movimentado'] = categorias_movimentacoes[categoria]['entrada'] + categorias_movimentacoes[categoria]['saida']
 
     # Definição de indicadores e porcentagens com relação ao total geral movimentado (ou por limites)
     balanco_geral = abs(somatoria_entradas - somatoria_saidas)
@@ -61,6 +58,10 @@ def somatorias():
         porcentagem_entrada = somatoria_entradas / total_geral * 100
         porcentagem_saida = somatoria_saidas / total_geral * 100
         porcentagem_fluxo = balanco_geral / total_geral * 100
+
+    # Definição de porcentagem do total movimento em cada categoria com relação ao total geral movimentado
+    for chave, valor in categorias_movimentacoes.items():
+        categorias_movimentacoes[chave]['porc_movimentacao'] = valor['movimentado'] / total_geral * 100
 
     # Retorno de todos os valores envolvendo totais, limites e porcentagens
     return {
