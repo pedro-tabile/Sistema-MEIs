@@ -17,11 +17,11 @@ def lucro_prejuizo(resultado_balanco: dict):
 
     # Conteúdo de exibição abaixo:
     if resultado_balanco['constatacao_balanco'] == "Lucro":
-        print(f"\nVocê teve um lucro de R$ {formatar_valor(balanco)}! Isso representa {porc:.2f}% do total movimentado.")
+        print(f"  - Você teve um lucro de R$ {formatar_valor(balanco)}! Isso representa {porc:.2f}% do total movimentado.")
     elif resultado_balanco['constatacao_balanco'] == "Prejuízo":
-        print(f"\nVocê teve um prejuízo de R$ {formatar_valor(balanco)}! Isso representa {porc:.2f}% do total movimentado.")
+        print(f"  - Você teve um prejuízo de R$ {formatar_valor(balanco)}! Isso representa {porc:.2f}% do total movimentado.")
     else:
-        print("\nVocê teve um equilíbrio de gastos e receitas!")
+        print("  - Você teve um equilíbrio de gastos e receitas!")
 
 
 # Exibição de total de entrada e saída, balanço, total movimentado e porcentagem do total movimentado em relação ao total geral por categoria 
