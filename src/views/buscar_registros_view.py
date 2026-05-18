@@ -1,4 +1,5 @@
 from tabulate import tabulate
+from utils.formatacao_real import formatar_valor
 
 # Função responsável pela exibição da tabela de registros
 def tabela_registros(dados_exibicao: list):
@@ -7,7 +8,7 @@ def tabela_registros(dados_exibicao: list):
     # Loop que adiciona os valores de cada chave dos registros (agrupados por listas) em uma lista geral
     for item in dados_exibicao:
         # A linha abaixo formata o valor para o padrão monetário brasileiro
-        item['Valor'] = f"{item['Valor']:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+        item['Valor'] = formatar_valor(item['Valor'])
         lista_dados.append(list(item.values()))
 
     # Adiciona as chaves (comuns para todos os registros) da primeira ocorrência em uma lista para headers

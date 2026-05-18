@@ -32,6 +32,10 @@ opcoes = (
         "id": 7,
         "mensagem": "Busca parametrizada de registros",
     },
+    {
+        "id": 8,
+        "mensagem": "Análise geral de valores",
+    },
 )
 
 # Exibição inicial das opções de ações (importadas)
