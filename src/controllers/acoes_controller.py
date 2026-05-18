@@ -184,10 +184,14 @@ def adicionar_limite(opcao: int):
 
 # Função responsável por direcionar a exibição dos gráficos: pega os valores identificados e os envia à view de exibição dos gráficos 
 def buscar_graficos(opcao: int):
-    # Inicialmente, verirfica se tem algum registro (Id) para prosseguir; caso não haja, retorna mensagem de inexistência
+    # Inicialmente, verirfica se tem algum registro (Id) para prosseguir; caso não haja, retorna mensagem de inexistência de registros (sem_registros)
     filtro_id = buscar_filtro_id('Id')
 
-    if filtro_id['quantidade'] == 0:
+    if filtro_id['sucesso'] is False:
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
+        mensagem_erro(filtro_id['erro'])
+        return
+    elif filtro_id['quantidade'] == 0:
         sem_registros()
         return
 
@@ -238,9 +242,18 @@ def busca_parametrizada(opcao: int):
 
 # Função responsável pelas ações de análise de valores movimentados
 def analise_valores():
+    # Verifica (buscando pelo campo 'Id') se há algum registro no arquivo. Caso não haja, exibe mensagem de inexistência de registros e impede análise
+    filtro_id = buscar_filtro_id('Id')
+    if filtro_id['sucesso'] is False:
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
+        mensagem_erro(filtro_id['erro'])
+        return
+    elif filtro_id['quantidade'] == 0:
+        sem_registros()
+        return
+    
     # Variável que armazena um dict com todos os cálculos envolvidos nas análises
     dados_calculos = somatorias()
-
     if dados_calculos['sucesso']:
         # Análise 1 - Exibição das mensagens de total movimentado geral e total movimentado em entradas e saídas, junto às porcentagens
         mensagem_movimentacoes(dados_calculos['dados'])
@@ -253,15 +266,20 @@ def analise_valores():
         # Análise 3 - Trecho que chama a view para exibição da análise por categorias
         valores_categorias(dados_calculos['dados']['valores_categoria'])
 
-        # Análise 4 - Trecho que chama função de análise de balanço por níveis e limites, enviando à view valores de balanço, limites e porcentagem dos níveis.
+        # Análise 4 - Trecho que chama função de análise de balanço por níveis e limites, enviando à view valores de balanço, limites e 
+        # porcentagem dos níveis
         resultado_balanco_niveis = analise_balanco_niveis(dados_calculos['dados'])
-        niveis_limites(resultado_balanco_niveis)
-        # Caso algum limite não esteja definido (sem correspondência no dicionário retornado na análise), chama-se uma view (sem_limite_definido) 
-        # que informa a impossibilidade de análise
+
+        # Verifica se o nível está presente no dicionário; se estiver, envia os dados à exibição, caso contrário, exibe mensagem de indefinição
         if resultado_balanco_niveis.get('Pessoal') is None:
             sem_limite_definido('Pessoal')
+        else:
+            niveis_limites(resultado_balanco_niveis['Pessoal'], 'Pessoal')
+
         if resultado_balanco_niveis.get('Empresarial') is None:
             sem_limite_definido('Empresarial')
+        else:
+            niveis_limites(resultado_balanco_niveis['Empresarial'], 'Empresarial')
     else:
         # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(dados_calculos['erro'])
