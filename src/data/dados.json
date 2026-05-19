@@ -59,10 +59,40 @@
             "N\u00edvel": "Empresarial",
             "Categoria": "oioi",
             "Cliente": "sfdsdfsd"
+        },
+        {
+            "Id": 11,
+            "Tipo": "Entrada",
+            "Valor": 3.0,
+            "Descri\u00e7\u00e3o": "asd",
+            "Data": "23/12/1212",
+            "N\u00edvel": "Pessoal",
+            "Categoria": "ad",
+            "Cliente": "asd"
+        },
+        {
+            "Id": 12,
+            "Tipo": "Entrada",
+            "Valor": 23.0,
+            "Descri\u00e7\u00e3o": "e",
+            "Data": "23/12/1212",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "ad",
+            "Cliente": "asd"
+        },
+        {
+            "Id": 13,
+            "Tipo": "Entrada",
+            "Valor": 23.0,
+            "Descri\u00e7\u00e3o": "sdf",
+            "Data": "21/12/1212",
+            "N\u00edvel": "Empresarial",
+            "Categoria": "sd",
+            "Cliente": "sd"
         }
     ],
     "limites": {
-        "Empresarial": 10.0,
-        "Pessoal": 9.0
+        "Empresarial": 0.0,
+        "Pessoal": 0.0
     }
 }

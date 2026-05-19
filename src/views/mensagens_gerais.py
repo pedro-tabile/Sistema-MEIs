@@ -1,49 +1,51 @@
 # Mensagem de boas-vindas
 def msg_inicio():
-    print('Bem-vindo ao sistema de gerenciamento monetário dos MEIs!\n')
+    # "\033[96m ... \033[m" refere-se à cor
+    print('\033[96mBem-vindo ao sistema de gerenciamento monetário dos MEIs!\033[m\n')
 
 # Mensagem de fim de execução do programa
 def msg_fim():
-    print("Programa finalizado!")
+    print("\033[96mPrograma finalizado!\033[m")
 
 # Mensagem de erro ao escolher opção de ação
 def opcao_invalida():
-    print("Opção inválida!\n")
+    print("\033[31mOpção inválida!\033[m\n")
 
 # Mensagem de erro: ação não executada ou falha na execução
 def mensagem_erro(erro: str):
-    print(f"Ocorreu um erro ao tentar executar ação: {erro}\n")
+    print(f"\033[31mOcorreu um erro ao tentar executar ação: {erro}\033[m\n")
 
 # Mensagem de ação executada com sucesso
 def mensagem_sucesso(acao_sucesso: int):
     match acao_sucesso:
         case 1:
-            print("Movimentação registrada com sucesso!\n")
+            print("\033[92mMovimentação registrada com sucesso!\033[m\n")
 
         case 2:
-            print("Registros encontrados com sucesso!\n")
+            print("\033[92mRegistros encontrados com sucesso!\033[m\n")
 
         case 3:
-            print("\nRegistro atualizado com sucesso!\n")
+            print("\n\033[92mRegistro atualizado com sucesso!\033[m\n")
 
         case 4:
-            print("\nRegistro excluído com sucesso!\n")
+            print("\n\033[92mRegistro excluído com sucesso!\033[m\n")
 
         case 5:
-            print ("\nLimite definido com sucesso!\n")   
+            print ("\n\033[92mLimite definido com sucesso!\033[m\n")   
         
         case 6:
-            print("Gráficos gerados com sucesso!\n")
+            print("\033[92mLimites atuais exibidos com sucesso!\033[m\n")
 
         case 7:
-            print("Registros filtrados com sucesso!\n")
-        case 9:
-            print("Limites atuais exibidos com sucesso!\n")
+            print("\033[92mGráficos gerados com sucesso!\033[m\n")
 
+        case 8:
+            print("\033[92mRegistros filtrados com sucesso!\033[m\n")
+            
 # Mensagem exibida caso o Id informado não exista
 def registro_inexistente():
-    print("\nNão foi encontrado nenhum registro com esse Id!\n")
+    print("\n\033[31mNão foi encontrado nenhum registro com esse Id!\033[m\n")
 
 # Mensagem exibida caso não haja nenhum registro no arquivo
 def sem_registros():
-    print("Nenhum registro encontrado!\n")
+    print("\033[31mNenhum registro encontrado!\033[m\n")

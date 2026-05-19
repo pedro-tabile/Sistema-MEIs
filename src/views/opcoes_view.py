@@ -26,24 +26,27 @@ opcoes = (
     },
     {
         "id": 6,
-        "mensagem": "Buscar gráficos",
+        "mensagem": "Exibir limites atuais"
     },
     {
         "id": 7,
-        "mensagem": "Busca parametrizada de registros",
+        "mensagem": "Buscar gráficos",
     },
     {
         "id": 8,
-        "mensagem": "Análise geral de valores",
+        "mensagem": "Busca parametrizada de registros",
     },
     {
         "id": 9,
-        "mensagem": "Exibir limites atuais"
-    }
+        "mensagem": "Análise geral de valores",
+    },
 )
 
 # Exibição inicial das opções de ações (importadas)
 def exibicao_opcoes():
+    print("-" * 135)
+    print()
+    
     for item in opcoes:
         print(f'{item["id"]} - {item["mensagem"]}')
 
@@ -51,7 +54,7 @@ def exibicao_opcoes():
 
 # Função usada pelo controller para solicitar ação
 def escolher_opcao():
-    opcao = int(input("Informe o número da ação que deseja realizar: "))
+    opcao = int(input("\033[93mInforme o número da ação que deseja realizar: \033[m"))
     print()
     
     return opcao

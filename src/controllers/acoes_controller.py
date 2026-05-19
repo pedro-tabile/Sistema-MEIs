@@ -44,13 +44,13 @@ def direcionar_escolha():
     elif opcao == 5:
         adicionar_limite(opcao)
     elif opcao == 6:
-        buscar_graficos(opcao)
-    elif opcao == 7:
-        busca_parametrizada(opcao)
-    elif opcao == 8:
-        analise_valores()
-    elif opcao == 9:
         buscar_limites(opcao)
+    elif opcao == 7:
+        buscar_graficos(opcao)
+    elif opcao == 8:
+        busca_parametrizada(opcao)
+    elif opcao == 9:
+        analise_valores()
 
     return opcao
 
@@ -169,8 +169,9 @@ def excluir_registro(opcao: int):
         mensagem_erro(filtro_id['erro'])
 
 
-#Função responsável por direcionar o valor relacionado ao limite e seu nível
+# Função responsável por direcionar o fluxo de cadastro de novo limite por nível
 def adicionar_limite(opcao: int):
+    # Solicita informações e valida nível, enviando-o ao model responsável pelo registro no arquivo
     dados_limite = infos_limite()
     dados_limite = validador_limite(dados_limite)
     
@@ -179,11 +180,25 @@ def adicionar_limite(opcao: int):
 
     resultado = definir_limite(nivel, valor)
 
+    # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação ocorra normalmente; caso contrário, resposta de erro
     if resultado["sucesso"]:
         mensagem_sucesso(opcao)
     else:
         # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(resultado['erro'])
+
+
+# Função que busca limites e envia-os à view de exibição
+def buscar_limites(opcao: int):
+    valores = valores_limite()
+
+    # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação (envio à view) ocorra normalmente; caso contrário, resposta de erro
+    if valores['sucesso']:
+        exibir_limites(valores['limites'])
+        mensagem_sucesso(opcao)
+    else:
+        # Mensagem para possível erro de leitura ou gravação de dados no arquivo
+        mensagem_erro('erro')
 
 
 # Função responsável por direcionar a exibição dos gráficos: pega os valores identificados e os envia à view de exibição dos gráficos 
@@ -203,6 +218,7 @@ def buscar_graficos(opcao: int):
     # gráficos são exibidos; caso contrário, uma mensagem de erro é exibida.
     valores_itens = buscar_valores_itens()
 
+    # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação ocorra normalmente; caso contrário, resposta de erro
     if valores_itens['sucesso']:
         # Exibe os gráficos e a mensagem de sucesso
         exibir_graficos(valores_itens['dados'])
@@ -258,6 +274,7 @@ def analise_valores():
     
     # Variável que armazena um dict com todos os cálculos envolvidos nas análises
     dados_calculos = somatorias()
+    # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação ocorra normalmente; caso contrário, resposta de erro
     if dados_calculos['sucesso']:
         # Análise 1 - Exibição das mensagens de total movimentado geral e total movimentado em entradas e saídas, junto às porcentagens
         mensagem_movimentacoes(dados_calculos['dados'])
@@ -287,13 +304,3 @@ def analise_valores():
     else:
         # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(dados_calculos['erro'])
-
-
-def buscar_limites(opcao: int):
-    valores = valores_limite()
-
-    if valores['sucesso'] == True:
-        exibir_limites(valores['dados']['limites'])
-        mensagem_sucesso(opcao)
-    else:
-        mensagem_erro('erro')

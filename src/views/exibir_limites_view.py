@@ -1,3 +1,6 @@
-def exibir_limites(valores):
-    print (f'Limite Empresarial: R${valores['Empresarial']:.2f}')
-    print (f'Limite Pessoal: R${valores['Pessoal']:.2f}\n')
+from utils.formatacao_real import formatar_valor
+
+# Função para exibição de limites registrados
+def exibir_limites(valores: dict):
+    print (f'Limite Empresarial: R$ {formatar_valor(valores['Empresarial'])}')
+    print (f'Limite Pessoal: R$ {formatar_valor(valores['Pessoal'])}\n')
