@@ -63,6 +63,6 @@
     ],
     "limites": {
         "Empresarial": 10.0,
-        "Pessoal": 0.0
+        "Pessoal": 9.0
     }
 }

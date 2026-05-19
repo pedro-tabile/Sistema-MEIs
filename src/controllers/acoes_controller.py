@@ -8,6 +8,7 @@ from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_cam
 from views.definir_limite_view import infos_limite
 from views.buscar_graficos_view import exibir_graficos
 from views.analise_valores_view import lucro_prejuizo, mensagem_movimentacoes, niveis_limites, sem_limite_definido, valores_categorias
+from views.exibir_limites_view import exibir_limites
 
 from models.adicionar_registro_model import registrar_nova_movimentacao
 from models.buscar_registros_model import buscar_registros, buscar_registros_parametros
@@ -17,6 +18,7 @@ from models.editar_registro_model import buscar_registro_edicao, editar_dados
 from models.definir_limite_model import definir_limite
 from models.analise_valores_model import somatorias
 from models.buscar_dados_graficos_model import buscar_valores_itens
+from models.buscar_limites_model import valores_limite
 
 from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo, validador_limite
 from .analises_valores_controller import analise_balanco_geral, analise_balanco_niveis
@@ -47,6 +49,8 @@ def direcionar_escolha():
         busca_parametrizada(opcao)
     elif opcao == 8:
         analise_valores()
+    elif opcao == 9:
+        buscar_limites(opcao)
 
     return opcao
 
@@ -283,3 +287,13 @@ def analise_valores():
     else:
         # Mensagem para possível erro de leitura ou gravação de dados no arquivo
         mensagem_erro(dados_calculos['erro'])
+
+
+def buscar_limites(opcao: int):
+    valores = valores_limite()
+
+    if valores['sucesso'] == True:
+        exibir_limites(valores['dados']['limites'])
+        mensagem_sucesso(opcao)
+    else:
+        mensagem_erro('erro')

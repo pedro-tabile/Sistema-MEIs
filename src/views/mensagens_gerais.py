@@ -37,6 +37,8 @@ def mensagem_sucesso(acao_sucesso: int):
 
         case 7:
             print("Registros filtrados com sucesso!\n")
+        case 9:
+            print("Limites atuais exibidos com sucesso!\n")
 
 # Mensagem exibida caso o Id informado não exista
 def registro_inexistente():

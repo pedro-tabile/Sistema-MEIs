@@ -36,6 +36,10 @@ opcoes = (
         "id": 8,
         "mensagem": "Análise geral de valores",
     },
+    {
+        "id": 9,
+        "mensagem": "Exibir limites atuais"
+    }
 )
 
 # Exibição inicial das opções de ações (importadas)
