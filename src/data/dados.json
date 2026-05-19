@@ -92,7 +92,7 @@
         }
     ],
     "limites": {
-        "Empresarial": 0.0,
-        "Pessoal": 0.0
+        "Empresarial": 100.0,
+        "Pessoal": 1150.0
     }
 }

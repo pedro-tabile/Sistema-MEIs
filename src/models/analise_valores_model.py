@@ -39,7 +39,7 @@ def somatorias():
         categorias_movimentacoes[categoria]['movimentado'] = categorias_movimentacoes[categoria]['entrada'] + categorias_movimentacoes[categoria]['saida']
 
     # Definição de indicadores e porcentagens com relação ao total geral movimentado (ou por limites)
-    balanco_geral = abs(somatoria_entradas - somatoria_saidas)
+    balanco_geral = somatoria_entradas - somatoria_saidas
     total_geral = somatoria_entradas + somatoria_saidas
 
     porcentagem_entrada, porcentagem_saida, porcentagem_fluxo = 0, 0, 0

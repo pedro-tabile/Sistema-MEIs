@@ -11,8 +11,8 @@ def analise_balanco_geral(dados_valores: dict):
     elif balanco < 0:
         return {
             "constatacao_balanco": "Prejuízo",
-            "balanco": balanco,
-            "porcentagem": dados_valores['porcentagens']['fluxo']
+            "balanco": abs(balanco),
+            "porcentagem": abs(dados_valores['porcentagens']['fluxo'])
         }
     else:
         return {
