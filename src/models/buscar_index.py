@@ -9,7 +9,7 @@ def buscar_indice(id: int):
     
     index_registro = None
 
-    #Laço de repetição para encontrar o índice do id
+    # Laço de repetição para encontrar o índice do id
     for indice, item in enumerate(dados_json['dados']['registros']):
         if item['Id'] == id:
             index_registro = indice
