@@ -1,4 +1,3 @@
-```markdown
 <div align="center">
 
 # 💼 Sistema para Gestão Financeira de MEIs
@@ -58,7 +57,6 @@ Muitos MEIs têm dificuldade para separar as finanças pessoais das finanças do
 git clone [https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git](https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git)
 cd NOME-DO-REPOSITORIO
 
-```
 
 ### 2. Crie um ambiente virtual
 
