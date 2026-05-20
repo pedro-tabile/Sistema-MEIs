@@ -237,11 +237,12 @@ Este projeto tem como finalidade aplicar conceitos fundamentais estudados durant
 
 Projeto desenvolvido como requisito acadêmico para a **Fatec São Paulo**.
 
-* Vinicius Kaolo Futema Sonoda
-* Wesley Santos Souza
-* Theo Figueiredo de Aquino
+* Caynã Roberto Salvador
 * Matheus Zelante Cavalcante
 * Pedro Henrique Tabile Piovezani
+* Theo Figueiredo de Aquino
+* Vinicius Kaolo Futema Sonoda
+* Wesley Santos Souza
 
 ---
 
