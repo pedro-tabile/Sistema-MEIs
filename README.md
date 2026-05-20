@@ -54,8 +54,7 @@ Muitos MEIs têm dificuldade para separar as finanças pessoais das finanças do
 
 ### 1. Clone o repositório
 ```bash
-git clone [https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git](https://github.com/SEU-USUARIO/NOME-DO-REPOSITORIO.git)
-cd NOME-DO-REPOSITORIO
+git clone https://github.com/pedro-tabile/Sistema-MEIs.git
 
 
 ### 2. Crie um ambiente virtual
