@@ -41,6 +41,20 @@ def validar_tipo(tipo: str):
         return 'Saída'
 
 
+# Valida o valor informado pela conversão para float (número real)
+def validar_valor(valor: str):
+    valido = False
+    while not valido:
+        try:
+            valor = float(valor)
+            valido = True
+        except ValueError:
+            valido = False
+            valor = novo_input("Valor")
+
+    return valor
+
+
 # Verifica se os campos de string (descrição, categoria e cliente) não estão vazios
 def validar_strings_comum(dado: str, campo: str):
     while dado.strip() == "":

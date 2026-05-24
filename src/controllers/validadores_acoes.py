@@ -1,4 +1,4 @@
-from .validadores_campos_registro import validar_data, validar_nivel, validar_strings_comum, validar_tipo
+from .validadores_campos_registro import validar_data, validar_nivel, validar_strings_comum, validar_tipo, validar_valor
 
 # Função de validação: garante que todos os campos sejam preenchidos corretamente
 def validacoes_novo_registro(dados: dict):
@@ -6,6 +6,7 @@ def validacoes_novo_registro(dados: dict):
     dados['Tipo'] = validar_tipo(dados['Tipo'])
     dados['Nível'] = validar_nivel(dados['Nível'])
     dados['Data'] = validar_data(dados['Data'])
+    dados['Valor'] = validar_valor(dados['Valor'])
     dados['Categoria'] = validar_strings_comum(dados['Categoria'], 'categoria')
     dados['Cliente'] = validar_strings_comum(dados['Cliente'], 'cliente')
     dados['Descrição'] = validar_strings_comum(dados['Descrição'], 'descrição da movimentação')
