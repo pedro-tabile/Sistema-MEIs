@@ -23,6 +23,8 @@ def validador_edicao_campo(campo: str, novo_valor: str):
         novo_valor = validar_nivel(novo_valor)
     elif campo == 'Data':
         novo_valor = validar_data(novo_valor)
+    else:
+        novo_valor = validar_valor(novo_valor)
 
     return novo_valor
 
@@ -30,5 +32,6 @@ def validador_edicao_campo(campo: str, novo_valor: str):
 def validador_limite(dados_limite: dict):
     # Atualização do nível do dicionário passado com o resultado da validação
     dados_limite['Nível'] = validar_nivel(dados_limite['Nível'])
+    dados_limite['Valor'] = validar_valor(dados_limite['Valor'])
 
     return dados_limite

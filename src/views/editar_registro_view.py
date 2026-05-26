@@ -44,8 +44,6 @@ def msg_cancelar_edicao():
 
 # Solicitação de novo valor para o campo
 def novo_valor(campo: str):
-    msg = f'\nInforme um novo valor para o campo {campo}: '
-    if campo == 'Valor':
-        return float(input(msg))
-    else:
-        return input(msg)
+    msg = input(f'\nInforme um novo valor para o campo {campo}: ')
+    print()
+    return msg

@@ -25,13 +25,13 @@ def mensagem_sucesso(acao_sucesso: int):
             print("\033[92mRegistros encontrados com sucesso!\033[m\n")
 
         case 3:
-            print("\n\033[92mRegistro atualizado com sucesso!\033[m\n")
+            print("\033[92mRegistro atualizado com sucesso!\033[m\n")
 
         case 4:
             print("\n\033[92mRegistro excluído com sucesso!\033[m\n")
 
         case 5:
-            print ("\n\033[92mLimite definido com sucesso!\033[m\n")   
+            print ("\033[92mLimite definido com sucesso!\033[m\n")   
         
         case 6:
             print("\033[92mLimites atuais exibidos com sucesso!\033[m\n")
