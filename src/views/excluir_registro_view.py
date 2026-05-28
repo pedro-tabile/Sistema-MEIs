@@ -1,6 +1,6 @@
 # Input que solicita id do registro a ser excluído
 def msg_id_exclusao():
-    return int(input('Informe o ID do registro a ser excluído: '))
+    return input('Informe o ID do registro a ser excluído: ')
 
 # Mensagem de solicitação de confirmação para exclusão
 def msg_confirmacao():

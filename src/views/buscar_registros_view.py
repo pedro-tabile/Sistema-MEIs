@@ -16,35 +16,31 @@ def tabela_registros(dados_exibicao: list):
 
     print(f"{tabulate(lista_dados, headers=lista_headers, tablefmt='github', disable_numparse=True)}\n")
 
-# Opções para busca parametrizada, solicitando a opção (parâmetro) que o usuário deseja para exibir os registros
+# Lista com dicionário contendo id e descrição da opção, de modo a facilitar manipulação de dados no controller e no model
+opcoes_params = [
+    {
+        "id": 1,
+        "param": "Nível"
+    }, 
+    {
+        "id": 2,
+        "param": "Categoria"
+    }, 
+    {
+        "id": 3,
+        "param": "Tipo"
+    }
+]
+    
+# Opções para busca parametrizada, solicitando a opção (ou seja, o parâmetro) que o usuário deseja para exibir os registros
 def parametros():
-    # Lista com dicionário contendo id e descrição da opção, de modo a facilitar manipulação de dados no controller e no model
-    opcoes_params = [
-        {
-            "id": 1,
-            "param": "Nível"
-        }, 
-        {
-            "id": 2,
-            "param": "Categoria"
-        }, 
-        {
-            "id": 3,
-            "param": "Tipo"
-        }
-    ]
-
     for item in opcoes_params:
         print(f"{item['id']} - Por {item['param']}")
 
-    opcao = int(input("\nEscolha a opção para filtrar registros: " ))
-    
+    opcao = input("\nEscolha a opção para filtrar registros: ")
     print()
 
-    if opcao not in range(1, len(opcoes_params) + 1):
-        return False
-
-    return opcoes_params[opcao - 1]
+    return opcao
 
 # Função que solicita que o usuário informe o que deseja filtrar com base no parâmetro escolhido (tipo, nível ou categoria), definindo, 
 # assim, a saída adequada para correspondência no arquivo

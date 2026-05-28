@@ -2,9 +2,9 @@
 from views.opcoes_view import opcoes, escolher_opcao
 from views.mensagens_gerais import opcao_invalida, mensagem_erro, mensagem_sucesso, registro_inexistente, sem_registros
 from views.novo_registro_view import infos_novo_registro
-from views.buscar_registros_view import tabela_registros, parametros, retorno_parametro_escolhido
+from views.buscar_registros_view import tabela_registros, parametros, retorno_parametro_escolhido, opcoes_params
 from views.excluir_registro_view import msg_id_exclusao, msg_confirmacao, msg_cancelar_exclusao
-from views.editar_registro_view import msg_id_edicao, exibir_tabela, escolha_campo, msg_cancelar_edicao, novo_valor
+from views.editar_registro_view import msg_id_edicao, exibir_tabela, campos_disponiveis, msg_cancelar_edicao, novo_valor
 from views.definir_limite_view import infos_limite
 from views.buscar_graficos_view import exibir_graficos
 from views.analise_valores_view import lucro_prejuizo, mensagem_movimentacoes, niveis_limites, sem_limite_definido, valores_categorias
@@ -21,16 +21,13 @@ from models.buscar_dados_graficos_model import buscar_valores_itens
 from models.buscar_limites_model import valores_limite
 
 from .validadores_acoes import validacoes_novo_registro, validador_edicao_campo, validador_limite
+from .validadores_campos_registro import validar_int_opcoes
 from .analises_valores_controller import analise_balanco_geral, analise_balanco_niveis
 
 # Função que garante que a opção escolhida seja uma das opções permitidas; quando for permitida, direciona às ações correspondentes
 def direcionar_escolha():
-    opcao = escolher_opcao()
-
-    # Enquanto a opção estiver fora do intervalo das opções, solicita novamente a escolha
-    while not 0 <= opcao <= len(opcoes) - 1:
-        opcao_invalida()
-        opcao = escolher_opcao()
+    # Solicita a escolha da opção ao usuário e a encaminha ao validador de opções, junto aos valores mínimos e máximos permitidos 
+    opcao = validar_int_opcoes(escolher_opcao(), opcoes[0]["id"], opcoes[-1]['id'], True)
     
     # Direciona à função correspondente conforme escolha
     if opcao == 1:
@@ -96,7 +93,8 @@ def editar_registro(opcao: int):
 
     # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação ocorra normalmente; caso contrário, resposta de erro
     if filtro_id['sucesso']:
-        id_escolhido = msg_id_edicao()
+        # Solicita a escolha do id ao usuário e a encaminha ao validador de opções 
+        id_escolhido = validar_int_opcoes(msg_id_edicao())
 
         # Verifica se o Id existe; se não existir, mensagem de inexistência é exibida
         if id_escolhido in filtro_id['itens_encontrados']:
@@ -104,12 +102,18 @@ def editar_registro(opcao: int):
             registro_encontrado = buscar_registro_edicao(id_escolhido)
             exibir_tabela(registro_encontrado, 'Início')
 
-            # Solicita o novo campo a ser alterado
-            campo_escolhido = escolha_campo(registro_encontrado)
+            # Cria uma lista com as chaves dos campos do registro para facilitar manipulação e correspondência de campo escolhido
+            filtro_opcoes = list(registro_encontrado.keys())[1:]
 
-            # Valida o campo e solicita o novo valor (também validado em seguida), enviando-o à função de edição; caso o valor informado para 
-            # um campo não corresponda a nenhum, a edição e cancelada 
-            if not isinstance(campo_escolhido, int):
+            # Exibe as opções de alteração e solicita o novo campo a ser alterado, enviando-o ao validador
+            campo_escolhido = validar_int_opcoes(campos_disponiveis(registro_encontrado), 0, len(filtro_opcoes) - 1)
+            # Caso a opção escolhida seja válida (esteja no intervalo referente à quantidade de campos válidos - 0 a 6), solicita o novo valor (também 
+            # validado em seguida) e identifica o campo correspondente, validando-o e enviando à função de edição; caso o valor informado para um campo 
+            # seja inválido (sem correspondência), a edição é cancelada
+            if isinstance(campo_escolhido, int):
+                # Correspondência entre campo e opção
+                campo_escolhido = filtro_opcoes[campo_escolhido]
+                # Solicita o novo valor para o campo e o envia à validação
                 novo_valor_campo = novo_valor(campo_escolhido)
                 novo_valor_atualizado = validador_edicao_campo(campo_escolhido, novo_valor_campo)
                 # editar_dados retorna um dicionário contendo os dados e o sucesso (True ou False)
@@ -122,6 +126,7 @@ def editar_registro(opcao: int):
                     # ao dicionário (registro_encontrado) na função de edição (editar_dados)
                     exibir_tabela(registro_encontrado, 'Fim')
                 else:
+                    # Mensagem para possível erro de leitura ou gravação de dados no arquivo
                     mensagem_erro(resultado_edicao['erro'])
             else:
                 # Cancelamento de edição (mensagem)
@@ -141,7 +146,8 @@ def excluir_registro(opcao: int):
 
     # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação ocorra normalmente; caso contrário, resposta de erro
     if filtro_id['sucesso']:
-        id_escolhido = msg_id_exclusao()
+        # Solicita o id e envia à função de validação de inteiro
+        id_escolhido = validar_int_opcoes(msg_id_exclusao())
         
         # Realiza a correspondência entre o id informado pelo usuário e os ids existentes, realizando a exclusão em caso de confirmação 
         # e cancelando operação caso o id não seja encontrado
@@ -231,20 +237,20 @@ def buscar_graficos(opcao: int):
 
 # Função responsável por controlar a busca parametrizada de registros
 def busca_parametrizada(opcao: int):
-    # Resgata o parâmetro escolhido pelo usuário e valida se a opção é inválida
-    parametro = parametros()
-    if parametro is False:
+    # Resgata o parâmetro escolhido pelo usuário e valida a partir da tentativa de conversão para inteiro
+    parametro = validar_int_opcoes(parametros(), 1, len(opcoes_params))
+    if not isinstance(parametro, int):
         opcao_invalida()
         return
     
-    # Resgata o filtro de pesquisa escolhido pelo usuário e valida se é inválido
-    filtro_pesquisa = retorno_parametro_escolhido(parametro['id'])
+    # Resgata o filtro de pesquisa escolhido pelo usuário e valida
+    filtro_pesquisa = retorno_parametro_escolhido(parametro)
     if filtro_pesquisa is None:
         opcao_invalida()
         return
 
     # Chama a função que retorna os registros correspondentes à busca do usuário
-    resultado_dados = buscar_registros_parametros(filtro_pesquisa, parametro['param'])
+    resultado_dados = buscar_registros_parametros(filtro_pesquisa, opcoes_params[parametro - 1]['param'])
 
     # Condicional padrão do resultado da operação: mensagem de sucesso caso a ação ocorra normalmente; caso contrário, resposta de erro
     if resultado_dados['sucesso']:

@@ -3,7 +3,7 @@ def infos_novo_registro():
     dados = {
         "Id": None,
         "Tipo": input("Tipo (E para entrada ou S para saída): "),
-        "Valor": float(input("Valor (R$): ")),
+        "Valor": (input("Valor (R$): ")),
         "Descrição": input("Descrição da movimentação: "),
         "Data": input("Data (dd/mm/aaaa): "),
         "Nível": input("Nível (E para empresarial ou P para pessoal): "),
@@ -17,5 +17,6 @@ def infos_novo_registro():
 # Função de validação/correção geral
 def novo_input(tipo: str):
     input_new = input(f"Insira um valor válido para {tipo}: ")
+    print()
 
     return input_new

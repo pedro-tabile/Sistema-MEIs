@@ -1,4 +1,4 @@
-from .validadores_campos_registro import validar_data, validar_nivel, validar_strings_comum, validar_tipo
+from .validadores_campos_registro import validar_data, validar_nivel, validar_strings_comum, validar_tipo, validar_valor
 
 # Função de validação: garante que todos os campos sejam preenchidos corretamente
 def validacoes_novo_registro(dados: dict):
@@ -6,6 +6,7 @@ def validacoes_novo_registro(dados: dict):
     dados['Tipo'] = validar_tipo(dados['Tipo'])
     dados['Nível'] = validar_nivel(dados['Nível'])
     dados['Data'] = validar_data(dados['Data'])
+    dados['Valor'] = validar_valor(dados['Valor'])
     dados['Categoria'] = validar_strings_comum(dados['Categoria'], 'categoria')
     dados['Cliente'] = validar_strings_comum(dados['Cliente'], 'cliente')
     dados['Descrição'] = validar_strings_comum(dados['Descrição'], 'descrição da movimentação')
@@ -22,6 +23,8 @@ def validador_edicao_campo(campo: str, novo_valor: str):
         novo_valor = validar_nivel(novo_valor)
     elif campo == 'Data':
         novo_valor = validar_data(novo_valor)
+    else:
+        novo_valor = validar_valor(novo_valor)
 
     return novo_valor
 
@@ -29,5 +32,6 @@ def validador_edicao_campo(campo: str, novo_valor: str):
 def validador_limite(dados_limite: dict):
     # Atualização do nível do dicionário passado com o resultado da validação
     dados_limite['Nível'] = validar_nivel(dados_limite['Nível'])
+    dados_limite['Valor'] = validar_valor(dados_limite['Valor'])
 
     return dados_limite

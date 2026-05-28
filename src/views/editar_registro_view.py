@@ -2,7 +2,7 @@ from tabulate import tabulate
 
 # Input que solicita id do registro a ser editado
 def msg_id_edicao():
-    return int(input('Informe o ID do registro a ser editado: '))
+    return input('Informe o ID do registro a ser editado: ')
 
 # Exibe tabela do registro a ser editado
 def exibir_tabela(dados: dict, pos_exibicao: str):
@@ -22,30 +22,25 @@ def exibir_tabela(dados: dict, pos_exibicao: str):
     print(f"{tabulate(lista_dados, headers=lista_headers, tablefmt='github', disable_numparse=True)}\n")
     
 
-# Fornece a lista de opções (obtida pelas chaves do dicionário do registro) para escolher o campo a ser editado, o input de escolha
-# e retorna o valor escolhido
-def escolha_campo(dados: dict):
+# Fornece a lista de opções (obtida pelas chaves do dicionário do registro) do campo a ser editado e retorna o valor escolhido
+def campos_disponiveis(dados: dict):
     lista_opcoes = list(dados.keys())[1:]
     
     for i, item in enumerate(lista_opcoes):
-        print(f"{i + 1} - {item}")
+        print(f"{i} - {item}")
     
-    print(f'{len(lista_opcoes) + 1} ou outro - Cancelar ou Sair')
+    print(f'{len(lista_opcoes)} ou outro - Cancelar ou Sair')
+    
+    return input('\nCampo a ser editado: ')
 
-    campo = int(input('\nCampo a ser editado: '))
-    if campo >= len(lista_opcoes) + 1: 
-        return campo
-    else: 
-        return lista_opcoes[campo - 1]
-    
+
 # Mensagem de cancelamento de edição
 def msg_cancelar_edicao():
-    print("\nEdição cancelada!\n")
+    print("\n\033[31mEdição cancelada!\033[m\n")
+
 
 # Solicitação de novo valor para o campo
 def novo_valor(campo: str):
-    msg = f'\nInforme um novo valor para o campo {campo}: '
-    if campo == 'Valor':
-        return float(input(msg))
-    else:
-        return input(msg)
+    msg = input(f'\nInforme um novo valor para o campo {campo}: ')
+    print()
+    return msg
