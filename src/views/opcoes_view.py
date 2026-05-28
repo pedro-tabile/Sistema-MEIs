@@ -54,7 +54,15 @@ def exibicao_opcoes():
 
 # Função usada pelo controller para solicitar ação
 def escolher_opcao():
-    opcao = int(input("\033[93mInforme o número da ação que deseja realizar: \033[m"))
+    opcao = input("\033[93mInforme o número da ação que deseja realizar: \033[m")
+    print()
+    
+    return opcao
+
+
+# Função usada pelo controller para solicitar ação
+def nova_opcao():
+    opcao = input("\033[93mInforme um número válido para a ação que deseja realizar: \033[m")
     print()
     
     return opcao

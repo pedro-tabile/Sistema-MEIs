@@ -1,4 +1,6 @@
 from views.novo_registro_view import novo_input
+from views.mensagens_gerais import opcao_invalida
+from views.opcoes_view import nova_opcao
 from utils.conversao_data import string_para_data
 
 # Validação de data a partir da função de conversão e trata erro caso informada incorretamente
@@ -61,3 +63,35 @@ def validar_strings_comum(dado: str, campo: str):
         dado = novo_input(campo)
 
     return dado
+
+
+# Função responsável pela validação de inteiros, junto à validação conforme um intervalo informado, retornando o resultado de uma conversão
+def validar_int_opcoes(valor_conversao: str, opcao_min: int = None, opcao_max: int = None, nova_solicitacao: bool = False):
+    inteiro = False
+    
+    # Executa o laço enquanto a conversão gerar erro (não for inteiro)
+    while inteiro is False:
+        try:
+            valor_conversao = int(valor_conversao)
+            inteiro = True
+
+            # Caso haja parâmetros para opções (verificação de intervalos), verifica se o valor está dentro do intervalo informado e, caso o parâmetro 
+            # nova_solicitacao seja True, solicita novo valor para conversão, caso contrário retorna uma string representando valor inválido
+            if (opcao_min is not None and opcao_max is not None) and (opcao_min > valor_conversao or valor_conversao > opcao_max):
+                # Ca
+                if nova_solicitacao:
+                    opcao_invalida()
+                    valor_conversao = nova_opcao()
+                    inteiro = False
+                else:
+                    return str(valor_conversao)
+        except ValueError:
+            # Caso haja parâmetro True para nova solicitação, solicita novo valor para conversão, caso contrário retorna uma string representando valor inválido
+            if nova_solicitacao:
+                opcao_invalida()
+                valor_conversao = nova_opcao()
+                inteiro = False
+            else:
+                return str(valor_conversao)
+    
+    return valor_conversao
