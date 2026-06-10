@@ -1,148 +1,38 @@
 {
     "registros": [
         {
-            "Id": 4,
+            "Id": 1,
             "Tipo": "Sa\u00edda",
-            "Valor": 589.0,
-            "Descri\u00e7\u00e3o": "asdasd",
-            "Data": "12/12/1212",
+            "Valor": 300.0,
+            "Descri\u00e7\u00e3o": "Compra de latas de tinta azul e preta",
+            "Data": "12/05/2026",
             "N\u00edvel": "Empresarial",
-            "Categoria": "dsf",
-            "Cliente": "asd"
+            "Categoria": "Recursos",
+            "Cliente": "Suvinil"
         },
         {
-            "Id": 7,
+            "Id": 2,
             "Tipo": "Entrada",
-            "Valor": 34.23,
-            "Descri\u00e7\u00e3o": "sdf",
-            "Data": "12/12/1212",
+            "Valor": 500.0,
+            "Descri\u00e7\u00e3o": "Valor pago pelo serviço prestado (inclui caixinha)",
+            "Data": "25/05/2026",
             "N\u00edvel": "Empresarial",
-            "Categoria": "a",
-            "Cliente": "a"
+            "Categoria": "Mão de obra",
+            "Cliente": "Igor Santos"
         },
         {
-            "Id": 8,
-            "Tipo": "Sa\u00edda",
-            "Valor": 1100.0,
-            "Descri\u00e7\u00e3o": "211232131",
-            "Data": "12/12/1212",
+            "Id": 3,
+            "Tipo": "Saída",
+            "Valor": 75.0,
+            "Descri\u00e7\u00e3o": "Gastos com gasolina para transporte particular (uso pessoal)",
+            "Data": "26/05/2026",
             "N\u00edvel": "Pessoal",
-            "Categoria": "v",
-            "Cliente": "ert"
-        },
-        {
-            "Id": 9,
-            "Tipo": "Entrada",
-            "Valor": 234.0,
-            "Descri\u00e7\u00e3o": "asdasd",
-            "Data": "25/06/2024",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "tste",
-            "Cliente": "sdsdf"
-        },
-        {
-            "Id": 10,
-            "Tipo": "Entrada",
-            "Valor": 154.0,
-            "Descri\u00e7\u00e3o": "sdfsdf",
-            "Data": "23/05/2626",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "oioi",
-            "Cliente": "sfdsdfsd"
-        },
-        {
-            "Id": 11,
-            "Tipo": "Entrada",
-            "Valor": 3.0,
-            "Descri\u00e7\u00e3o": "asd",
-            "Data": "23/12/1212",
-            "N\u00edvel": "Pessoal",
-            "Categoria": "ad",
-            "Cliente": "asd"
-        },
-        {
-            "Id": 12,
-            "Tipo": "Entrada",
-            "Valor": 23.0,
-            "Descri\u00e7\u00e3o": "e",
-            "Data": "23/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "ad",
-            "Cliente": "asd"
-        },
-        {
-            "Id": 13,
-            "Tipo": "Entrada",
-            "Valor": 23.0,
-            "Descri\u00e7\u00e3o": "sdf",
-            "Data": "21/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "sd",
-            "Cliente": "sd"
-        },
-        {
-            "Id": 14,
-            "Tipo": "Entrada",
-            "Valor": 23.23,
-            "Descri\u00e7\u00e3o": "fdsdfsdf",
-            "Data": "23/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "asd",
-            "Cliente": "asd"
-        },
-        {
-            "Id": 15,
-            "Tipo": "Entrada",
-            "Valor": 23.0,
-            "Descri\u00e7\u00e3o": "sfds",
-            "Data": "23/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "asd",
-            "Cliente": "asd"
-        },
-        {
-            "Id": 16,
-            "Tipo": "Entrada",
-            "Valor": 23.0,
-            "Descri\u00e7\u00e3o": "asd",
-            "Data": "23/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "asd",
-            "Cliente": "asd"
-        },
-        {
-            "Id": 17,
-            "Tipo": "Entrada",
-            "Valor": 23.0,
-            "Descri\u00e7\u00e3o": "asd",
-            "Data": "12/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "asd",
-            "Cliente": "asd"
-        },
-        {
-            "Id": 18,
-            "Tipo": "Entrada",
-            "Valor": 12.0,
-            "Descri\u00e7\u00e3o": "asd",
-            "Data": "12/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "asd",
-            "Cliente": "asd"
-        },
-        {
-            "Id": 19,
-            "Tipo": "Entrada",
-            "Valor": 23.0,
-            "Descri\u00e7\u00e3o": "asd",
-            "Data": "12/12/1212",
-            "N\u00edvel": "Empresarial",
-            "Categoria": "sad",
-            "Cliente": "ad"
+            "Categoria": "Abastecimento",
+            "Cliente": "Posto Ipiranga"
         }
     ],
     "limites": {
-        "Empresarial": 12.0,
+        "Empresarial": 60000.0,
         "Pessoal": 1150.0
     }
 }
